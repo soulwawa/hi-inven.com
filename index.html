@@ -1,0 +1,48 @@
+---
+layout: home
+---
+<section class="hero">
+  <img class="hero-art" src="{{ '/assets/images/app-icon.png' | relative_url }}" alt="안녕재고 앱 아이콘">
+  <div class="hero-inner">
+    <p class="eyebrow">집안 물건을 기억하는 iPhone 앱</p>
+    <h1>안녕재고</h1>
+    <p class="tagline">말로 담고,<br>기한 전에 챙겨요.</p>
+    {% if site.app_store_url and site.app_store_url != "" %}
+      <a class="primary-link" href="{{ site.app_store_url }}" target="_blank" rel="noopener">App Store에서 받기</a>
+    {% else %}
+      <p class="release-status"><span aria-hidden="true"></span>App Store 출시 준비 중</p>
+    {% endif %}
+  </div>
+</section>
+
+<section class="feature-band" aria-labelledby="features-title">
+  <div class="section-inner">
+    <header class="section-header">
+      <p class="eyebrow">덜 적고, 덜 잊도록</p>
+      <h2 id="features-title">기억할 일은 안녕재고에게</h2>
+    </header>
+    <div class="feature-grid">
+      <article>
+        <strong>대화로 등록</strong>
+        <p>“우유 두 개 담아줘”처럼 말하면 재고에 바로 기록합니다.</p>
+      </article>
+      <article>
+        <strong>한눈에 확인</strong>
+        <p>집에 무엇이 얼마나 남았는지 필요한 순간 빠르게 찾습니다.</p>
+      </article>
+      <article>
+        <strong>기한 전에 알림</strong>
+        <p>챙겨야 할 물건을 놓치지 않도록 적절한 때 알려드립니다.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="privacy-band">
+  <div class="section-inner privacy-copy">
+    <p class="eyebrow">기기 안에서 안전하게</p>
+    <h2>재고와 대화는 밖으로 보내지 않아요.</h2>
+    <p>회원가입과 광고 추적 없이, 사용자가 기록한 내용은 iPhone에 저장됩니다.</p>
+    <a class="text-link" href="{{ '/privacy/' | relative_url }}">개인정보처리방침 보기</a>
+  </div>
+</section>

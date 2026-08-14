@@ -1,0 +1,21 @@
+---
+layout: page
+title: 블로그
+description: 안녕재고를 만드는 이유와 제품에 대한 생각을 기록합니다.
+---
+{% assign blog_posts = site.posts | where_exp: "p", "p.categories contains 'blog'" %}
+{% if blog_posts.size > 0 %}
+<ul class="post-list">
+  {% for post in blog_posts %}
+  <li>
+    <a href="{{ post.url | relative_url }}">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y년 %-m월 %-d일" }}</time>
+      <h2>{{ post.title }}</h2>
+      {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty-state">첫 글을 준비하고 있습니다.</p>
+{% endif %}

@@ -1,0 +1,25 @@
+title: 안녕재고
+description: 말로 담고, 기한 전에 챙기는 집안 재고 비서
+url: https://hi-inven.com
+baseurl: ""
+lang: ko
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+permalink: /:categories/:title/
+
+app_store_url: ""
+support_email: support@hi-inven.com
+
+exclude:
+  - AGENTS.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - docs
+  - script
+  - vendor
+  - .gitignore
