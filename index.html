@@ -5,15 +5,17 @@ layout: home
   <div class="hero-demo"
        role="img"
        aria-label="대화로 우유를 등록하고 기한 알림 안내를 확인하는 안녕재고 앱 화면">
-    <video class="hero-demo-video"
-           autoplay
-           muted
-           loop
-           playsinline
-           preload="metadata"
-           poster="{{ '/assets/media/app-demo-poster.jpg' | relative_url }}">
-      <source src="{{ '/assets/media/app-demo.mp4' | relative_url }}?v=1" type="video/mp4">
-    </video>
+    <div class="hero-demo-screen">
+      <video class="hero-demo-video"
+             autoplay
+             muted
+             loop
+             playsinline
+             preload="metadata"
+             poster="{{ '/assets/media/app-demo-poster.jpg' | relative_url }}">
+        <source src="{{ '/assets/media/app-demo.mp4' | relative_url }}?v=1" type="video/mp4">
+      </video>
+    </div>
   </div>
   <div class="hero-inner">
     <p class="eyebrow">집안 물건을 기억하는 iPhone 앱</p>

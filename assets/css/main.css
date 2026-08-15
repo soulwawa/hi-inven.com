@@ -122,15 +122,48 @@ a:focus-visible {
 .hero-demo {
   position: absolute;
   height: min(560px, calc(100% - 40px));
-  aspect-ratio: 1170 / 2532;
+  aspect-ratio: 0.475;
   right: max(40px, calc((100vw - var(--max-site)) / 2 + 100px));
   bottom: 20px;
-  overflow: hidden;
-  background: url("/assets/media/app-demo-poster.jpg") center / cover no-repeat;
-  border: 1px solid var(--line);
-  border-radius: 38px;
+  padding: 7px;
+  background: #171817;
+  border: 1px solid #303230;
+  border-radius: 46px;
   box-shadow: 0 18px 42px rgba(24, 32, 28, 0.16);
   z-index: 0;
+}
+
+.hero-demo::before {
+  content: "";
+  position: absolute;
+  width: 66px;
+  height: 17px;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #050505;
+  border-radius: 999px;
+  z-index: 2;
+}
+
+.hero-demo::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 34px;
+  top: 112px;
+  left: -4px;
+  background: #292b29;
+  border-radius: 3px 0 0 3px;
+  box-shadow: 0 46px 0 #292b29;
+}
+
+.hero-demo-screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: url("/assets/media/app-demo-poster.jpg") center / cover no-repeat;
+  border-radius: 39px;
 }
 
 .hero-demo-video {
@@ -468,7 +501,24 @@ a:focus-visible {
     right: auto;
     bottom: 20px;
     transform: translateX(-50%);
-    border-radius: 30px;
+    padding: 5px;
+    border-radius: 36px;
+  }
+
+  .hero-demo::before {
+    width: 54px;
+    height: 14px;
+    top: 9px;
+  }
+
+  .hero-demo::after {
+    height: 28px;
+    top: 88px;
+    box-shadow: 0 38px 0 #292b29;
+  }
+
+  .hero-demo-screen {
+    border-radius: 31px;
   }
 
   .feature-band,
