@@ -62,6 +62,9 @@ a:focus-visible {
 }
 
 .site-title {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   font-size: 18px;
   font-weight: 800;
   text-decoration: none;
@@ -75,6 +78,9 @@ a:focus-visible {
 }
 
 .site-nav a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   color: var(--muted);
   font-size: 14px;
   font-weight: 650;
@@ -102,7 +108,7 @@ a:focus-visible {
   inset: auto 0 0;
   height: 12px;
   background: var(--yellow);
-  z-index: -1;
+  z-index: 2;
 }
 
 .hero-inner {
@@ -118,7 +124,7 @@ a:focus-visible {
   width: clamp(360px, 48vw, 620px);
   height: auto;
   right: max(-40px, calc((100vw - var(--max-site)) / 2 - 20px));
-  bottom: -82px;
+  bottom: 0;
   object-fit: contain;
   z-index: 0;
 }
@@ -128,7 +134,6 @@ a:focus-visible {
   color: #276d4b;
   font-size: 13px;
   font-weight: 800;
-  text-transform: uppercase;
   letter-spacing: 0;
 }
 
@@ -296,6 +301,11 @@ a:focus-visible {
   font-size: 16px;
 }
 
+.page-content > :first-child,
+.post-content > :first-child {
+  margin-top: 0;
+}
+
 .page-content h2,
 .post-content h2 {
   margin: 36px 0 10px;
@@ -442,8 +452,8 @@ a:focus-visible {
 
   .hero-art {
     width: 330px;
-    right: -74px;
-    bottom: -54px;
+    right: -40px;
+    bottom: 0;
   }
 
   .feature-band,
@@ -485,10 +495,6 @@ a:focus-visible {
 @media (max-width: 390px) {
   .site-title {
     font-size: 16px;
-  }
-
-  .site-nav a:nth-child(1) {
-    display: none;
   }
 
   .hero h1 {
