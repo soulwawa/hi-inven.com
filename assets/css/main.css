@@ -4,7 +4,6 @@
   --paper: #f7f8f4;
   --white: #ffffff;
   --mint: #68c99a;
-  --mint-soft: #dff3e8;
   --yellow: #f4b51c;
   --line: #d9dfda;
   --max-site: 1120px;
@@ -93,7 +92,7 @@ a:focus-visible {
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: var(--mint-soft);
+  background: var(--white);
   border-bottom: 1px solid var(--line);
 }
 
@@ -121,7 +120,6 @@ a:focus-visible {
   right: max(-40px, calc((100vw - var(--max-site)) / 2 - 20px));
   bottom: -82px;
   object-fit: contain;
-  mix-blend-mode: multiply;
   z-index: 0;
 }
 
@@ -190,7 +188,7 @@ a:focus-visible {
 
 .feature-band {
   padding: 88px 0 96px;
-  background: var(--white);
+  background: var(--paper);
 }
 
 .section-header {
