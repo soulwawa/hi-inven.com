@@ -19,7 +19,7 @@ RUBYOPT=-r./script/ruby4_compat.rb bundle exec jekyll serve
 
 ## 공개 전 필수 확인
 
-- `support@hi-inven.com` 메일 수신이 되는지 확인합니다.
+- `soulwawa85@gmail.com`으로 문의 메일이 연결되는지 확인합니다.
 - `_config.yml`의 `app_store_url`을 신규 앱 URL로 바꿉니다.
 - 정책 JSON의 `appStoreURL`과 버전 범위를 채널별로 확인합니다.
 - GitHub Pages를 `main` 브랜치 루트에서 배포하도록 설정합니다.

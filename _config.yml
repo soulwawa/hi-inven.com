@@ -12,7 +12,7 @@ kramdown:
 permalink: /:categories/:title/
 
 app_store_url: ""
-support_email: support@hi-inven.com
+support_email: soulwawa85@gmail.com
 
 exclude:
   - AGENTS.md
