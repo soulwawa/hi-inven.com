@@ -119,14 +119,25 @@ a:focus-visible {
   z-index: 1;
 }
 
-.hero-art {
+.hero-demo {
   position: absolute;
-  width: clamp(360px, 48vw, 620px);
-  height: auto;
-  right: max(-40px, calc((100vw - var(--max-site)) / 2 - 20px));
-  bottom: 0;
-  object-fit: contain;
+  height: min(560px, calc(100% - 40px));
+  aspect-ratio: 1170 / 2532;
+  right: max(40px, calc((100vw - var(--max-site)) / 2 + 100px));
+  bottom: 20px;
+  overflow: hidden;
+  background: url("/assets/media/app-demo-poster.jpg") center / cover no-repeat;
+  border: 1px solid var(--line);
+  border-radius: 38px;
+  box-shadow: 0 18px 42px rgba(24, 32, 28, 0.16);
   z-index: 0;
+}
+
+.hero-demo-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .eyebrow,
@@ -434,12 +445,12 @@ a:focus-visible {
   }
 
   .hero {
-    min-height: 560px;
+    min-height: 760px;
     align-items: flex-start;
   }
 
   .hero-inner {
-    padding: 58px 0 260px;
+    padding: 58px 0 460px;
   }
 
   .hero h1 {
@@ -450,10 +461,14 @@ a:focus-visible {
     font-size: 24px;
   }
 
-  .hero-art {
-    width: 330px;
-    right: -40px;
-    bottom: 0;
+  .hero-demo {
+    width: clamp(186px, 54vw, 210px);
+    height: auto;
+    left: 50%;
+    right: auto;
+    bottom: 20px;
+    transform: translateX(-50%);
+    border-radius: 30px;
   }
 
   .feature-band,
@@ -489,6 +504,12 @@ a:focus-visible {
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 10px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-demo-video {
+    display: none;
   }
 }
 
