@@ -11,7 +11,7 @@ kramdown:
 
 permalink: /:categories/:title/
 
-app_store_url: ""
+app_store_url: "https://apps.apple.com/kr/app/id6802033161"
 support_email: soulwawa85@gmail.com
 
 exclude:

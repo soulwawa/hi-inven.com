@@ -17,7 +17,7 @@
 3. 앱 버전이 `minimumVersion` 이상이면 업데이트 안내를 표시하지 않습니다.
 4. 파일 조회, HTTP 응답, JSON, 채널, 버전 또는 App Store URL 검증에 실패하면 앱 사용을 막지 않습니다.
 
-현재 세 정책은 모두 `0.0.0`, `appStoreURL: null`인 비활성 상태입니다. App Store URL이 확정되기 전에는 임계 버전을 올리지 않습니다.
+정책 임계값은 세 채널 모두 `0.0.0`을 유지합니다. production의 `appStoreURL`은 공개된 `https://apps.apple.com/kr/app/id6802033161`로 연결하며, dev/TestFlight는 `null`을 유지합니다. URL 연결만으로 강제 업데이트가 켜지지 않습니다. 실제 배포 상태와 검증 근거는 앱 저장소의 `docs/release/app-store-connect/state.md`를 확인합니다.
 
 ## 변경 전 확인
 
