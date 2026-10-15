@@ -1,6 +1,6 @@
 # 안녕재고 웹 측정 연결
 
-2026-10-15, Asia/Seoul. 현재 단계: 실제 설정 반영·로컬 검사 통과, 배포 및 공개 확인 진행 중. Google 수신/보고 조회는 아직 미검증이다.
+2026-10-15, Asia/Seoul. 현재 단계: 사이트 구현·배포·공개 확인과 실제 Google 전송 검사 완료. Google DebugView 수신/일반 보고 조회는 성장 담당의 후속 검증이며 이 문서에서 완료로 간주하지 않는다.
 
 사용자는 성장 채팅 `01a125cd-6f0f-7c63-be12-0c83c6cc3bbe`의 턴 `01a13e4a-3386-7d83-9c6d-fb03222cf1a6`에서 세 사이트의 GA4·Search Console 연결, 방문·유입·설치 링크 클릭 대시보드와 기존 매일 모니터링 반영을 승인했다. 이 저장소는 hi-inven.com 구현·기존 Pages 배포만 담당한다. Google 설정·인증·공통 대시보드·예약은 성장 담당이 소유한다.
 
@@ -35,7 +35,12 @@
 
 ## 배포·공개·복구
 
-아직 commit/push/Pages 배포 전이다. 같은 사용자 승인으로 기존 `main` Pages 배포를 이어간다. 실제 commit·배포 시각·공개 확인 시각과 검증 범위는 완료 후 이 문서에 기록한다. Google 관리 설정/필터/이벤트 수신/일반 보고서 생성은 서로 구분한다.
+- 운영 소스 commit `51e7ae86b933ade060a843d3ff4ad3db04ac2fbb`를 기존 원격 `main`에 fast-forward push했다. Pages의 source는 main/root이며 같은 commit의 `built`와 오류 없음, `updated_at=2026-10-15T07:11:10Z`(16:11:10 KST)를 확인했다. PR·앱 원격 변경은 하지 않았다.
+- 공개 확인은 16:13:09 KST다. HTML 6곳·정책 JSON 3개·JS/CSS 2개 모두 HTTPS 200. 모든 HTML에 정확한 ID의 로컬 include 1개, 직접 로드하는 Google script 0개를 확인했다. 공개 JS/CSS는 검증한 소스와 바이트가 일치하고 정책 3개는 배포 전 SHA256과 같다. [공개 응답/Pages 근거](web-measurement-2026-10-15/public-readback.json).
+- 실제 공개 페이지의 마지막 Chrome 검사 완료는 16:15:29 KST다. 동의 전/거부 시 Google 태그·전송 0, 허용 후 태그 1개, `page_view` 1회·정확한 `click` 1회 각각 HTTP204를 관측했다. 두 이벤트의 `ep.debug_mode=true`, `gcs=G101`, 안전한 페이지/유입/설치 URL, 임의 query/hash·UTM fixture 미전송을 확인했다. 철회 후 재로드·거부 보존·추가 전송 0과 해당 GA 쿠키 삭제도 통과했다. App Store 문서는 테스트 브라우저에서 가로챘으며 실제 앱 설치 시험은 아니다. [실제 전송 결과](web-measurement-2026-10-15/public-browser-result-2.txt), [재현 스크립트](web-measurement-2026-10-15/public-browser-check.js), [구조화 결과](web-measurement-2026-10-15/transport.json).
+- 첫 공개 검사는 테스트 코드가 debug의 wire 값을 `1`로만 예상해 실패했다. 실제 config는 `debug_mode:true`, 전송은 `ep.debug_mode=true`였고 주소 제한/전송은 이미 통과했다. 관측한 형식을 검사에 반영하고 새 브라우저로 전체 순서를 통과했다. 운영 JS를 바꾼 회귀 수정은 아니다. [첫 실패](web-measurement-2026-10-15/public-browser-result-1.txt), [표시 확인·철회](web-measurement-2026-10-15/debug-flag-inspection.txt)를 보존한다. 실제 외부 검사는 두 번의 debug 방문에서 실행했으며 고객 방문 성과로 합산하지 않는다.
+- HTTP204는 전송 성공 근거다. Google DebugView에서의 수신 확인, 일반 보고서 데이터 생성/조회, 공통 대시보드와 매일 모니터링 반영은 성장 담당이 별도로 완료해야 한다. Search Console 소유권은 위 인계 근거이며 이 담당이 별도 Google 로그인/키/권한 작업을 수행하지 않았다.
+- 배포 후 근거만 추가한 후속 문서 commit은 운영 코드·설정과 정책을 바꾸지 않는다. 이 작업의 임시 정적 서버와 별도 검증 브라우저는 종료한다.
 
 문제가 생기면 이 작업의 커밋을 대상으로 수정/원복 커밋을 만들고 기존 Pages 경로로 배포한다. 태그 삭제·강제 push·정책 JSON 초기화는 하지 않는다. 긴급 측정 중지는 `_config.yml`에서 이 GA4 ID 설정만 제거하고 배포하면 공통 include/태그가 렌더링되지 않는다. 이 중지 시 정책/기존 글/앱에 영향을 주지 않도록 대조한다. 이미 전송된 Google 데이터는 별도로 다뤄야 한다.
 

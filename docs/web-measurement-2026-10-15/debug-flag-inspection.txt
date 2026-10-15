@@ -1,0 +1,21 @@
+### Result
+{"config":[["config","G-1ZDPFSWQ01",{"send_page_view":false,"page_location":"https://hi-inven.com/","page_referrer":"https://search.example/","allow_google_signals":false,"allow_ad_personalization_signals":false,"cookie_domain":"hi-inven.com","debug_mode":true}]],"requests":[{"keys":["v","tid","gtm","_p","gcs","gcd","npa","dma_cps","dma","cid","frm","ngs","pscdl","rcb","sr","uaa","uab","uafvl","uam","uamb","uap","uapv","uaw","ul","_s","tag_exp","dl","dr","sid","sct","seg","dt","_tu","en","_fv","_nsi","_ss","_ee","ep.debug_mode","tfd"],"fields":{"en":"page_view","dl":"https://hi-inven.com/","dr":"https://search.example/","ep.debug_mode":"true"}},{"keys":["v","tid","gtm","_p","gcs","gcd","npa","dma_cps","dma","_eu","cid","frm","ngs","pscdl","rcb","sr","uaa","uab","uafvl","uam","uamb","uap","uapv","uaw","ul","_s","tag_exp","dl","dr","sid","sct","seg","dt","_tu","en","_ee","ep.debug_mode","ep.link_domain","ep.link_url","ep.outbound","_et","tfd"],"fields":{"en":"click","dl":"https://hi-inven.com/","dr":"https://search.example/","ep.debug_mode":"true","ep.link_url":"https://apps.apple.com/kr/app/id6802033161","ep.link_domain":"apps.apple.com","ep.outbound":"true"}}]}
+### Ran Playwright code
+```js
+await (async (page) => {
+ const result = await page.evaluate(() => ({
+  config: Array.from(window.dataLayer || [], x => Array.from(x)).filter(x => x[0] === "config"),
+  requests: performance.getEntriesByType("resource").filter(x => new URL(x.name).hostname.endsWith("google-analytics.com")).map(x => {
+   const p = new URL(x.name).searchParams;
+   const allowed = ["en", "dl", "dr", "_dbg", "ep.debug_mode", "epn.debug_mode", "debug_mode", "ep.link_url", "ep.link_domain", "ep.outbound", "epn.outbound"];
+   return { keys: [...p.keys()], fields: Object.fromEntries(allowed.filter(k => p.has(k)).map(k => [k,p.get(k)])) };
+  })
+ }));
+ await page.getByRole("button", {name:"웹 분석 설정",exact:true}).click();
+ await Promise.all([page.waitForNavigation(),page.getByRole("button", {name:"거부",exact:true}).click()]);
+ return result;
+})(page);
+```
+### Page
+- Page URL: https://hi-inven.com/?analytics_debug=1&email=qa-only%40invalid.example&utm_source=fixture-do-not-send&utm_campaign=fixture-sensitive#private-fixture
+- Page Title: 안녕재고 - 냉장고 관리·유통기한 알림

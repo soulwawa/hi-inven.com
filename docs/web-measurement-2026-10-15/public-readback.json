@@ -1,0 +1,104 @@
+{
+  "checked_at": "2026-10-15T07:13:09.873443+00:00",
+  "source_commit": "51e7ae86b933ade060a843d3ff4ad3db04ac2fbb",
+  "pages_build": {
+    "commit": "51e7ae86b933ade060a843d3ff4ad3db04ac2fbb",
+    "created_at": "2026-10-15T07:10:23Z",
+    "error": {
+      "message": null
+    },
+    "status": "built",
+    "updated_at": "2026-10-15T07:11:10Z"
+  },
+  "responses": [
+    {
+      "path": "/",
+      "status": 200,
+      "sha256": "23d1e253eae9a0c1aa4a4a8c2e466b1f7de5855009c2bfa67763f0027ab83c39",
+      "bytes": 5315,
+      "analytics_include_count": 1,
+      "correct_id_count": 1,
+      "remote_google_script_in_html": false
+    },
+    {
+      "path": "/privacy/",
+      "status": 200,
+      "sha256": "2d8214918df26c3873fb62c916fd43ac5424d966763708d7489aa5966713fd46",
+      "bytes": 7477,
+      "analytics_include_count": 1,
+      "correct_id_count": 1,
+      "remote_google_script_in_html": false,
+      "website_notice_present": true
+    },
+    {
+      "path": "/support/",
+      "status": 200,
+      "sha256": "9ba0304ce3c0cd2a1e1bf7bf3dcce82944955f996b31b7ae9e5aa61752d53518",
+      "bytes": 5081,
+      "analytics_include_count": 1,
+      "correct_id_count": 1,
+      "remote_google_script_in_html": false
+    },
+    {
+      "path": "/blog/",
+      "status": 200,
+      "sha256": "56f3e36aaabfb614880ed112a5a62459e26c80aa281a8c9a1d020162646d7b0f",
+      "bytes": 3110,
+      "analytics_include_count": 1,
+      "correct_id_count": 1,
+      "remote_google_script_in_html": false
+    },
+    {
+      "path": "/release/",
+      "status": 200,
+      "sha256": "c499cde994c0cf72865f6035240912ab5dca5749d032b35526399de5a81eb7e0",
+      "bytes": 3700,
+      "analytics_include_count": 1,
+      "correct_id_count": 1,
+      "remote_google_script_in_html": false
+    },
+    {
+      "path": "/release/v1-0-2/",
+      "status": 200,
+      "sha256": "5e8f8753da6a8c5d351d10ced28a4b8567f7f262ebcead84643eba175e0802dd",
+      "bytes": 4099,
+      "analytics_include_count": 1,
+      "correct_id_count": 1,
+      "remote_google_script_in_html": false
+    },
+    {
+      "path": "/hi-inven-dev.json",
+      "status": 200,
+      "sha256": "5b30b717692d3eeca89e30f092d8517c272d6969de2d8020e0234e5ddae56242",
+      "bytes": 130,
+      "unchanged": true
+    },
+    {
+      "path": "/hi-inven-testflight.json",
+      "status": 200,
+      "sha256": "e8e3125e751a6774d0c05924919f32f778dd77e81bec710c9824a6bde44da06e",
+      "bytes": 137,
+      "unchanged": true
+    },
+    {
+      "path": "/hi-inven.json",
+      "status": 200,
+      "sha256": "e0a2c870c9f06fd5c084ea173ee1aa621398d053a25f5ceda1d19a40a5411b72",
+      "bytes": 177,
+      "unchanged": true
+    },
+    {
+      "path": "/assets/js/analytics.js",
+      "status": 200,
+      "sha256": "4f9b417ae68808e686ecdc151ef0330d708968404a965453f8d3ed9fec42bb12",
+      "matches_source": true
+    },
+    {
+      "path": "/assets/css/main.css",
+      "status": 200,
+      "sha256": "8d0086b12668a7197d1d50cad34e6b3a74234a4891d7428cf594c00330d89738",
+      "matches_source": true
+    }
+  ],
+  "failures": []
+}

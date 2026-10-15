@@ -1,0 +1,46 @@
+{
+  "checked_at": "2026-10-15T07:15:29.887Z",
+  "status": "pass",
+  "google_tags": [
+    {
+      "phase": "allowed-debug",
+      "id": "G-1ZDPFSWQ01",
+      "referrer": "https://hi-inven.com/"
+    }
+  ],
+  "events": [
+    {
+      "phase": "allowed-debug",
+      "status": 204,
+      "query_fixture_leaked": false,
+      "parameters": {
+        "tid": "G-1ZDPFSWQ01",
+        "en": "page_view",
+        "dl": "https://hi-inven.com/",
+        "dr": "https://search.example/",
+        "ep.debug_mode": "true",
+        "gcs": "G101"
+      }
+    },
+    {
+      "phase": "allowed-debug",
+      "status": 204,
+      "query_fixture_leaked": false,
+      "parameters": {
+        "tid": "G-1ZDPFSWQ01",
+        "en": "click",
+        "dl": "https://hi-inven.com/",
+        "dr": "https://search.example/",
+        "ep.debug_mode": "true",
+        "ep.link_domain": "apps.apple.com",
+        "ep.link_url": "https://apps.apple.com/kr/app/id6802033161",
+        "ep.outbound": "true",
+        "gcs": "G101"
+      }
+    }
+  ],
+  "before_consent_and_refused": "no Google tag or collection",
+  "withdrawal": "reload, persisted denial, no new event, own GA cookies removed",
+  "install_destination": "real page click; App Store document intercepted to avoid unrelated browsing",
+  "google_reporting": "transport accepted only; DebugView and ordinary reporting are verified by growth owner"
+}

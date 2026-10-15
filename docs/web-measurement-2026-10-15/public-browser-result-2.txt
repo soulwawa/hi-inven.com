@@ -1,0 +1,83 @@
+### Result
+{"checked_at":"2026-10-15T07:15:29.887Z","status":"pass","google_tags":[{"phase":"allowed-debug","id":"G-1ZDPFSWQ01","referrer":"https://hi-inven.com/"}],"events":[{"phase":"allowed-debug","status":204,"query_fixture_leaked":false,"parameters":{"tid":"G-1ZDPFSWQ01","en":"page_view","dl":"https://hi-inven.com/","dr":"https://search.example/","ep.debug_mode":"true","gcs":"G101"}},{"phase":"allowed-debug","status":204,"query_fixture_leaked":false,"parameters":{"tid":"G-1ZDPFSWQ01","en":"click","dl":"https://hi-inven.com/","dr":"https://search.example/","ep.debug_mode":"true","ep.link_domain":"apps.apple.com","ep.link_url":"https://apps.apple.com/kr/app/id6802033161","ep.outbound":"true","gcs":"G101"}}],"before_consent_and_refused":"no Google tag or collection","withdrawal":"reload, persisted denial, no new event, own GA cookies removed","install_destination":"real page click; App Store document intercepted to avoid unrelated browsing","google_reporting":"transport accepted only; DebugView and ordinary reporting are verified by growth owner"}
+### Ran Playwright code
+```js
+await (async (page) => {
+  const check = (ok, message) => { if (!ok) throw new Error(message); };
+  const id = "G-1ZDPFSWQ01";
+  const observed = [];
+  const tags = [];
+  let phase = "before-consent";
+  const isCollect = request => new URL(request.url()).hostname.endsWith("google-analytics.com") && new URL(request.url()).pathname.endsWith("/collect");
+  const parameters = request => {
+    const base = new URL(request.url()).searchParams;
+    return (request.postData() || "").split("\n").map(line => {
+      const params = new URLSearchParams(base);
+      new URLSearchParams(line).forEach((value, key) => params.set(key, value));
+      return params;
+    });
+  };
+  page.on("request", request => {
+    const url = new URL(request.url());
+    if (url.hostname === "www.googletagmanager.com" && url.pathname === "/gtag/js") {
+      tags.push({ phase, id: url.searchParams.get("id"), referrer: request.headers().referer });
+    }
+  });
+  page.on("response", response => {
+    const request = response.request();
+    if (!isCollect(request)) return;
+    for (const params of parameters(request)) {
+      if (params.get("tid") !== id) continue;
+      const raw = request.url() + (request.postData() || "");
+      const permitted = ["tid", "en", "dl", "dr", "_dbg", "ep.debug_mode", "ep.link_domain", "ep.link_url", "ep.outbound", "epn.outbound", "gcs"];
+      observed.push({ phase, status: response.status(), query_fixture_leaked: /fixture-do-not-send|fixture-sensitive|qa-only|private-fixture/.test(decodeURIComponent(raw)),
+        parameters: Object.fromEntries(permitted.filter(key => params.has(key)).map(key => [key, params.get(key)])) });
+    }
+  });
+  await page.context().route("https://apps.apple.com/**", route => route.fulfill({ status: 200, contentType: "text/html", body: "<!doctype html><title>Install destination intercepted for debug QA</title>" }));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("https://hi-inven.com/?analytics_debug=1&email=qa-only%40invalid.example&utm_source=fixture-do-not-send&utm_campaign=fixture-sensitive#private-fixture", {
+    referer: "https://search.example/private-fixture?token=qa-only"
+  });
+  await page.locator("#analytics-consent").waitFor({ state: "visible" });
+  check(tags.length === 0 && observed.length === 0, "analytics before consent");
+  await page.getByRole("button", { name: "거부", exact: true }).click();
+  check(tags.length === 0 && observed.length === 0, "analytics after refusal");
+  await page.getByRole("button", { name: "웹 분석 설정", exact: true }).click();
+  phase = "allowed-debug";
+  const pageViewResponse = page.waitForResponse(response => isCollect(response.request()) && parameters(response.request()).some(params => params.get("en") === "page_view" && params.get("tid") === id));
+  await page.getByRole("button", { name: "허용", exact: true }).click();
+  await pageViewResponse;
+  const clickResponse = page.waitForResponse(response => isCollect(response.request()) && parameters(response.request()).some(params => params.get("en") === "click" && params.get("tid") === id));
+  const popupEvent = page.waitForEvent("popup");
+  await page.getByRole("link", { name: "App Store에서 받기", exact: true }).click();
+  const popup = await popupEvent;
+  await clickResponse;
+  await popup.close();
+  const views = observed.filter(event => event.parameters.en === "page_view");
+  const clicks = observed.filter(event => event.parameters.en === "click");
+  check(tags.length === 1 && tags[0].id === id, "tag missing or duplicated");
+  check(views.length === 1 && clicks.length === 1, "event missing or duplicated");
+  check(observed.every(event => event.status >= 200 && event.status < 300 && !event.query_fixture_leaked), "transport failure or query leak");
+  check([...views, ...clicks].every(event => event.parameters._dbg === "1" || ["1", "true"].includes(event.parameters["ep.debug_mode"])), "debug flag missing");
+  check(views[0].parameters.dl === "https://hi-inven.com/" && views[0].parameters.dr === "https://search.example/", "unsafe page/referrer address");
+  check(clicks[0].parameters["ep.link_url"] === "https://apps.apple.com/kr/app/id6802033161", "wrong link URL");
+  check(clicks[0].parameters["ep.link_domain"] === "apps.apple.com" && clicks[0].parameters["ep.outbound"] === "true", "wrong outbound marker");
+  await page.getByRole("button", { name: "웹 분석 설정", exact: true }).click();
+  phase = "withdrawn";
+  await Promise.all([page.waitForNavigation(), page.getByRole("button", { name: "거부", exact: true }).click()]);
+  check(observed.filter(event => event.phase === "withdrawn").length === 0, "event sent after withdrawal");
+  check(await page.evaluate(() => !window.dataLayer && localStorage.getItem("hi-inven.web-analytics.v1") === "denied"), "withdrawal not retained");
+  const gaCookies = (await page.context().cookies("https://hi-inven.com/")).filter(cookie => cookie.name === "_ga" || cookie.name === "_ga_1ZDPFSWQ01");
+  check(gaCookies.length === 0, "GA cookies remain after withdrawal");
+  await page.screenshot({ path: "docs/web-measurement-2026-10-15/public-after-withdrawal.png" });
+  return { checked_at: new Date().toISOString(), status: "pass", google_tags: tags, events: observed,
+    before_consent_and_refused: "no Google tag or collection", withdrawal: "reload, persisted denial, no new event, own GA cookies removed",
+    install_destination: "real page click; App Store document intercepted to avoid unrelated browsing",
+    google_reporting: "transport accepted only; DebugView and ordinary reporting are verified by growth owner" };
+}
+)(page);
+```
+### Page
+- Page URL: https://hi-inven.com/?analytics_debug=1&email=qa-only%40invalid.example&utm_source=fixture-do-not-send&utm_campaign=fixture-sensitive#private-fixture
+- Page Title: 안녕재고 - 냉장고 관리·유통기한 알림
