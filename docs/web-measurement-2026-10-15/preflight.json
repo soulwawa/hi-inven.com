@@ -1,0 +1,68 @@
+{
+  "checked_at": "2026-10-15T07:06:53.655859+00:00",
+  "pages": [
+    {
+      "path": "/",
+      "status": 200,
+      "sha256": "6495082ec9914396ba08897aaf9b7e604df3441a7fcb87401d8c6155f019a993",
+      "bytes": 4205,
+      "analytics_include_count": 0
+    },
+    {
+      "path": "/privacy/",
+      "status": 200,
+      "sha256": "2d7b0928bc7365a25c13b8462a12c3f7aad5d1aa5d8f0cff01d8720dce433551",
+      "bytes": 4612,
+      "analytics_include_count": 0
+    },
+    {
+      "path": "/support/",
+      "status": 200,
+      "sha256": "f340587bd1f8ee20b382b4ee223218e68fcfc60a28231a49f5b9cca88e9c1ff8",
+      "bytes": 3963,
+      "analytics_include_count": 0
+    },
+    {
+      "path": "/blog/",
+      "status": 200,
+      "sha256": "8309bd8679af75d110b87ed772e52b9cf17c11ec19bf86b3f0be0c227b9ee8fa",
+      "bytes": 1995,
+      "analytics_include_count": 0
+    },
+    {
+      "path": "/release/",
+      "status": 200,
+      "sha256": "816e9bb42cc3dab67567046415c825367c882c46f03dcf120a8df6e70f95f369",
+      "bytes": 2582,
+      "analytics_include_count": 0
+    },
+    {
+      "path": "/release/v1-0-2/",
+      "status": 200,
+      "sha256": "297f24f9e5c574855ab6a1fcfd2e4469a8009ac94e0c89e4ed58fbef773faf38",
+      "bytes": 2974,
+      "analytics_include_count": 0
+    },
+    {
+      "path": "/hi-inven-dev.json",
+      "status": 200,
+      "sha256": "5b30b717692d3eeca89e30f092d8517c272d6969de2d8020e0234e5ddae56242",
+      "bytes": 130,
+      "analytics_include_count": null
+    },
+    {
+      "path": "/hi-inven-testflight.json",
+      "status": 200,
+      "sha256": "e8e3125e751a6774d0c05924919f32f778dd77e81bec710c9824a6bde44da06e",
+      "bytes": 137,
+      "analytics_include_count": null
+    },
+    {
+      "path": "/hi-inven.json",
+      "status": 200,
+      "sha256": "e0a2c870c9f06fd5c084ea173ee1aa621398d053a25f5ceda1d19a40a5411b72",
+      "bytes": 177,
+      "analytics_include_count": null
+    }
+  ]
+}

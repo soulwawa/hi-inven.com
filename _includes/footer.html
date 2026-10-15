@@ -3,5 +3,7 @@
     <span>© 2026 안녕재고</span>
     <a href="{{ '/support/' | relative_url }}">고객 지원</a>
     <a href="{{ '/privacy/' | relative_url }}">개인정보처리방침</a>
+    {% if site.ga4_measurement_id %}<button class="analytics-settings" type="button" data-analytics-settings hidden>웹 분석 설정</button>{% endif %}
   </div>
 </footer>
+{% if site.ga4_measurement_id %}{% include web-analytics.html %}{% endif %}

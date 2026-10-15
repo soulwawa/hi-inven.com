@@ -12,6 +12,7 @@ kramdown:
 permalink: /:categories/:title/
 
 app_store_url: "https://apps.apple.com/kr/app/id6802033161"
+ga4_measurement_id: "G-1ZDPFSWQ01"
 support_email: soulwawa85@gmail.com
 
 exclude:

@@ -3,6 +3,7 @@
 require "json"
 require "pathname"
 require "uri"
+require "yaml"
 
 ROOT = Pathname(__dir__).join("..").expand_path
 POLICIES = {
@@ -48,4 +49,13 @@ POLICIES.each_key do |file|
   check(JSON.parse(ROOT.join("_site", file).read) == JSON.parse(ROOT.join(file).read), "built policy differs: #{file}")
 end
 
-puts "PASS: policies and Jekyll output"
+measurement_id = YAML.safe_load(ROOT.join("_config.yml").read)["ga4_measurement_id"]
+check(measurement_id.nil? || /\AG-[A-Z0-9]{10}\z/.match?(measurement_id), "valid analytics ID or removed setting")
+Dir.glob(ROOT.join("_site", "**", "*.html")).each do |file|
+  html = File.read(file)
+  check(html.scan('id="site-analytics"').length == (measurement_id ? 1 : 0), "analytics include count: #{file}")
+  check(html.include?(%Q(data-measurement-id="#{measurement_id}")), "configured analytics ID: #{file}") if measurement_id
+end
+check(ROOT.join("_site/assets/js/analytics.js").read == ROOT.join("assets/js/analytics.js").read, "built analytics script differs")
+
+puts "PASS: policies, Jekyll output and single analytics include"

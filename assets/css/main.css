@@ -455,6 +455,66 @@ a:focus-visible {
   text-underline-offset: 4px;
 }
 
+.analytics-settings {
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.analytics-consent {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  padding: 20px max(20px, calc((100vw - var(--max-site)) / 2));
+  border-top: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 -4px 20px rgba(24, 32, 28, 0.08);
+}
+
+.analytics-consent h2 {
+  font-size: 17px;
+}
+
+.analytics-consent p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.analytics-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.analytics-actions button {
+  min-width: 88px;
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.analytics-actions button[data-analytics-choice="granted"] {
+  background: var(--ink);
+  color: var(--white);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 4px;
+}
+
 @media (max-width: 760px) {
   .site-header {
     min-height: 64px;

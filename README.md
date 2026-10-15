@@ -17,6 +17,14 @@ bundle exec ruby script/check.rb
 RUBYOPT=-r./script/ruby4_compat.rb bundle exec jekyll serve
 ```
 
+웹 분석 동의·전송 범위 검사(Node.js 18 이상, 외부 요청 없음):
+
+```sh
+node --test script/check-analytics.cjs
+```
+
+GA4·Search Console 연결과 배포 확인은 [웹 측정 기록](docs/web-measurement-2026-10-15.md)을 참고합니다.
+
 ## 공개 전 필수 확인
 
 - `soulwawa85@gmail.com`으로 문의 메일이 연결되는지 확인합니다.

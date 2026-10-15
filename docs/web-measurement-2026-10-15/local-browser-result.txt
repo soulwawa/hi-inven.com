@@ -1,0 +1,81 @@
+### Result
+{"status":"pass","viewport":"390x844 and 1280x900","google_tag_requests_intercepted":1,"google_network_requests_sent":0,"queued_page_views":1,"queued_store_clicks":1,"consent_before_refused_changed_withdrawn":"pass","refused_install_link_opens":"pass","query_fragment_sanitized":"pass","local_preview_disabled":"pass","blocked_external_origins":["https://apps.apple.com"]}
+### Ran Playwright code
+```js
+await (async (page) => {
+  const check = (ok, message) => { if (!ok) throw new Error(message); };
+  const google = [];
+  const blocked = [];
+  await page.context().route("**/*", async route => {
+    const url = new URL(route.request().url());
+    if (url.origin === "https://hi-inven.com") {
+      const response = await page.request.get("http://127.0.0.1:4178" + url.pathname);
+      await route.fulfill({ response });
+    } else if (url.hostname === "www.googletagmanager.com") {
+      google.push(url.origin + url.pathname);
+      await route.fulfill({ status: 200, contentType: "application/javascript", body: "/* Offline consent QA: no Google tag executed. */" });
+    } else if (url.origin === "http://127.0.0.1:4178") {
+      await route.continue();
+    } else {
+      blocked.push(url.origin);
+      await route.abort();
+    }
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("https://hi-inven.com/?analytics_debug=1&email=qa-only%40invalid.example#test-only");
+  const banner = page.locator("#analytics-consent");
+  await banner.waitFor({ state: "visible" });
+  check(google.length === 0, "tag requested before consent");
+  const bounds = await banner.boundingBox();
+  check(bounds.y >= 0 && bounds.y + bounds.height <= 845, "mobile consent controls outside viewport");
+  check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), "mobile horizontal overflow");
+  await page.screenshot({ path: "docs/web-measurement-2026-10-15/mobile-consent.png" });
+  await page.getByRole("button", { name: "거부", exact: true }).click();
+  check(google.length === 0, "tag requested after refusal");
+  check(await page.getByRole("link", { name: "App Store에서 받기", exact: true }).getAttribute("href") === "https://apps.apple.com/kr/app/id6802033161", "install href changed");
+  const popupEvent = page.waitForEvent("popup");
+  await page.getByRole("link", { name: "App Store에서 받기", exact: true }).click();
+  const popup = await popupEvent;
+  await popup.close();
+  check((await page.evaluate(() => window.dataLayer || [])).length === 0, "refused click queued analytics");
+  await page.getByRole("button", { name: "웹 분석 설정", exact: true }).click();
+  await page.getByRole("button", { name: "허용", exact: true }).click();
+  await page.waitForFunction(() => document.querySelector('script[src^="https://www.googletagmanager.com/"]'));
+  const popupEvent2 = page.waitForEvent("popup");
+  await page.getByRole("link", { name: "App Store에서 받기", exact: true }).click();
+  const popup2 = await popupEvent2;
+  await popup2.close();
+  const calls = await page.evaluate(() => Array.from(window.dataLayer || [], call => Array.from(call)));
+  const views = calls.filter(call => call[0] === "event" && call[1] === "page_view");
+  const clicks = calls.filter(call => call[0] === "event" && call[1] === "click");
+  const config = calls.find(call => call[0] === "config");
+  check(google.length === 1, "tag request duplicated");
+  check(views.length === 1 && clicks.length === 1, "manual events missing or duplicated");
+  check(config[2].send_page_view === false && config[2].debug_mode === true, "manual/debug configuration missing");
+  check(!JSON.stringify(calls).includes("qa-only") && !JSON.stringify(calls).includes("test-only"), "query/fragment leaked to analytics queue");
+  check(clicks[0][2].link_url === "https://apps.apple.com/kr/app/id6802033161", "wrong install destination");
+  await page.getByRole("button", { name: "웹 분석 설정", exact: true }).click();
+  await Promise.all([
+    page.waitForNavigation(),
+    page.getByRole("button", { name: "거부", exact: true }).click()
+  ]);
+  check(google.length === 1, "tag loaded again after withdrawal");
+  check(await page.evaluate(() => !window.dataLayer), "tag state persisted after withdrawal reload");
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.getByRole("button", { name: "웹 분석 설정", exact: true }).click();
+  await page.screenshot({ path: "docs/web-measurement-2026-10-15/desktop-settings.png" });
+  await page.goto("http://127.0.0.1:4178/");
+  await page.evaluate(() => localStorage.setItem("hi-inven.web-analytics.v1", "granted"));
+  await page.reload();
+  check(google.length === 1, "local preview loaded Google tag");
+  check(await page.getByRole("button", { name: "웹 분석 설정", exact: true }).count() === 0, "local preview consent UI unexpectedly active");
+  return { status: "pass", viewport: "390x844 and 1280x900", google_tag_requests_intercepted: google.length,
+    google_network_requests_sent: 0, queued_page_views: views.length, queued_store_clicks: clicks.length,
+    consent_before_refused_changed_withdrawn: "pass", refused_install_link_opens: "pass", query_fragment_sanitized: "pass",
+    local_preview_disabled: "pass", blocked_external_origins: [...new Set(blocked)] };
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4178/
+- Page Title: 안녕재고 - 냉장고 관리·유통기한 알림
