@@ -466,48 +466,92 @@ a:focus-visible {
   cursor: pointer;
 }
 
+.analytics-consent[hidden] {
+  display: none;
+}
+
 .analytics-consent {
-  position: sticky;
-  bottom: 0;
+  position: fixed;
+  inset: auto 16px 16px;
   z-index: 3;
-  padding: 20px max(20px, calc((100vw - var(--max-site)) / 2));
-  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 704px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
   background: var(--white);
-  box-shadow: 0 -4px 20px rgba(24, 32, 28, 0.08);
+  box-shadow: 0 4px 24px rgba(24, 32, 28, 0.12);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.analytics-copy {
+  flex: 1;
+  min-width: 0;
 }
 
 .analytics-consent h2 {
-  font-size: 17px;
+  font-size: inherit;
+  font-weight: 600;
 }
 
-.analytics-consent p {
+.analytics-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
   margin-top: 4px;
   font-size: 13px;
   color: var(--muted);
 }
 
+.analytics-meta a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
 .analytics-actions {
   display: flex;
-  gap: 10px;
-  margin-top: 12px;
+  flex-shrink: 0;
+  gap: 8px;
 }
 
 .analytics-actions button {
-  min-width: 88px;
+  min-width: 64px;
   min-height: 44px;
-  padding: 8px 18px;
-  border: 1px solid var(--ink);
-  border-radius: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--muted);
+  border-radius: 8px;
   background: var(--white);
   color: var(--ink);
   font: inherit;
-  font-size: 14px;
   cursor: pointer;
 }
 
-.analytics-actions button[data-analytics-choice="granted"] {
-  background: var(--ink);
-  color: var(--white);
+body:has(.analytics-consent:not([hidden])) {
+  padding-bottom: 160px;
+}
+
+@media (max-width: 640px) {
+  .analytics-consent {
+    inset: auto 12px 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .analytics-actions {
+    justify-content: flex-end;
+  }
+
+  body:has(.analytics-consent:not([hidden])) {
+    padding-bottom: 208px;
+  }
 }
 
 button:focus-visible {
