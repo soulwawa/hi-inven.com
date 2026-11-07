@@ -23,7 +23,13 @@ RUBYOPT=-r./script/ruby4_compat.rb bundle exec jekyll serve
 node --test script/check-analytics.cjs
 ```
 
-GA4·Search Console 연결과 배포 확인은 [웹 측정 기록](docs/web-measurement-2026-10-15.md)을 참고합니다.
+웹 분석의 구현·검사 범위는 [웹 분석 설정과 로컬 검증](docs/web-measurement-2026-10-15.md)을 참고합니다.
+
+## 작업 지침과 운영 자료
+
+사이트 작업 기준은 [AGENTS.md](AGENTS.md), 출시·게시 순서는 [출시 절차](docs/release.md), 채널별 버전 판정은 [업데이트 정책](docs/update-policy.md)을 따릅니다. 환경별 공통 지침은 제공된 원문을 확인하며 개인 경로나 비공개 파일을 빌드의 필수 조건으로 두지 않습니다.
+
+AI 지침·README·docs·script는 사이트 빌드에서 제외합니다. 승인 원문·운영 관리 식별자·날짜별 로그와 화면 원본은 공개 저장소 밖에 보존합니다. 기존 미추적 검수 자료는 공개 추적 대상에서 제외하고, 공개 저장소와 빌드 산출물의 제외 여부를 각각 검사합니다.
 
 ## 공개 전 필수 확인
 

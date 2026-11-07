@@ -4,3 +4,8 @@ _site/
 .bundle/
 vendor/
 .DS_Store
+
+# 날짜별 비공개 운영·검수 원문
+/docs/web-measurement-20*/
+/docs/consent-banner-ui-*.json
+/docs/evidence/consent-banner-*

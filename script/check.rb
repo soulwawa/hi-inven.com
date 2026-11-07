@@ -49,6 +49,10 @@ POLICIES.each_key do |file|
   check(JSON.parse(ROOT.join("_site", file).read) == JSON.parse(ROOT.join(file).read), "built policy differs: #{file}")
 end
 
+%w[AGENTS.md README.md docs script].each do |path|
+  check(!ROOT.join("_site", path).exist?, "internal material included in site: #{path}")
+end
+
 measurement_id = YAML.safe_load(ROOT.join("_config.yml").read)["ga4_measurement_id"]
 check(measurement_id.nil? || /\AG-[A-Z0-9]{10}\z/.match?(measurement_id), "valid analytics ID or removed setting")
 Dir.glob(ROOT.join("_site", "**", "*.html")).each do |file|
