@@ -7,6 +7,13 @@ date: 2026-11-10
 categories: blog
 ---
 
+<style>
+article.post .post-header h1,
+article.post .post-content h2 {
+  word-break: keep-all;
+}
+</style>
+
 작성자: 안녕재고 제작자
 
 ## 장보기 전에 떠오르는 질문
@@ -42,6 +49,11 @@ categories: blog
 기록된 수량을 보고 이번에 더 살지, 집에 있는 것을 먼저 사용할지 결정할 수 있습니다. 두부와 달걀도 같은 방식으로 확인해 보세요. 필요한 물건을 떠올릴 때 기록해 둔 수량을 함께 참고하는 것입니다.
 
 안녕재고는 사용자가 남긴 기록을 바탕으로 재고를 보여줍니다. 기록한 뒤 수량이 달라졌다면 실제 남은 양에 맞춰 수정해주세요. 그래야 다음 장보기에서도 참고할 수 있습니다.
+
+<figure style="max-width: 320px; margin: 28px auto;">
+  <img src="{{ '/assets/images/blog/check-fridge-before-shopping-inventory.jpg' | relative_url }}" alt="우유·두부 등 예시 재고와 보관 장소·관리 기한이 표시된 안녕재고 재고 목록" width="1290" height="2796" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto;">
+  <figcaption style="margin-top: 12px; color: var(--muted); font-size: 14px; line-height: 1.6;">기록한 재료와 보관 장소, 관리 기한을 목록에서 확인하는 예시입니다.</figcaption>
+</figure>
 
 ## 사용한 수량을 다음 장보기 전에 정리하기
 
