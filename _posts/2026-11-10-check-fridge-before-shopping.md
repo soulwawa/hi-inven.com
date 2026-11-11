@@ -32,7 +32,7 @@ categories: blog
 #shopping-story .story-screen-window img { display:block;width:100%;height:auto;max-width:none }
 #shopping-story .story-home .story-screen-window { aspect-ratio:1.1 }
 #shopping-story .story-home img { margin-top:-12% }
-#shopping-story .story-add .story-screen-window { aspect-ratio:1.19 }
+#shopping-story .story-add .story-screen-window { aspect-ratio:1.19;border-radius:32px 32px 13px 13px }
 #shopping-story .story-add img { margin-top:-14% }
 #shopping-story .story-inventory .story-screen-window { aspect-ratio:1.18 }
 #shopping-story .story-inventory img { margin-top:-14% }
